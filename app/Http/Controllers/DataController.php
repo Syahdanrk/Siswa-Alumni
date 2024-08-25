@@ -6,6 +6,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use App\Models\Data;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class DataController extends Controller
 {
@@ -16,7 +17,16 @@ class DataController extends Controller
      */
     public function index()
     {
-        $data = Data::get();
+        $user = Auth::user();
+
+        // Jika user_type adalah 'admin', ambil semua data
+        if ($user->user_type === 'admin') {
+            $data = Data::all();
+        } else {
+            // Jika bukan admin, ambil data berdasarkan email
+            $data = Data::where('email', $user->email)->get();
+        }
+
         return view ('Pages.Create-Data.index', ['data' => $data]);
     }
 
@@ -38,6 +48,14 @@ class DataController extends Controller
      */
     public function store(Request $request)
     {
+         // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Cek apakah user bukan admin dan sudah pernah membuat data
+        if ($user->user_type !== 'admin' && Data::where('email', $user->email)->exists()) {
+            return redirect()->back()->with('error', 'Anda hanya dapat membuat satu data.');
+        }
+
         $request->validate([
     		'nisn' => 'required',
     		'nama' => 'required',

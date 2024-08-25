@@ -23,9 +23,11 @@
     <div class="card">
     <div class="m-2">
           <div class="container-m">
-              <a href="/create-data" class="rounded btn btn-outline-primary">Create Data</a>
-                        </div>
-                    </div>
+            @if(Auth::user()->user_type === 'admin' || !$data->contains('email', Auth::user()->email))
+                <a href="/create-data" class="rounded btn btn-outline-primary">Create Data</a>
+            @endif
+          </div>
+    </div>
       <div class="d-flex align-items-end row">
         <div class="card-body">
           <table class="table" id="myTable">
@@ -55,7 +57,9 @@
                               @method('DELETE')
                               <a href="/data/{{$item->id}}" class="rounded btn btn-outline-info m-1"><i class='bx bx-align-left'></i></a>
                               <a href="/data/{{$item->id}}/edit" class="rounded btn btn-outline-warning m-1"><i class='bx bx-edit-alt'></i></a>
+                              @if(Auth::user()->user_type === 'admin')
                               <button type="submit" value="delete" class="rounded btn btn-outline-danger m-1"><i class='bx bx-link-external'></i></button>
+                              @endif
                             </form>
                           </td>
                       @empty

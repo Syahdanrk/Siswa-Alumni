@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,8 @@ use App\Http\Controllers\DataController;
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/', [HomeController::class, 'countData'])->name('dashboard');
     
-    Route::get('/', function () {
-        return view('Pages.Dashboard.dashboard');
-    });
-
     Route::get('/create-data', function () {
         return view('Pages.Create-Data.createdata');
     });

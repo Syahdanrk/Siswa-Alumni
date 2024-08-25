@@ -11,10 +11,9 @@
         <div class="d-flex align-items-end row">
         <div class="col-sm-7">
             <div class="card-body">
-            <h5 class="card-title text-primary">Selamat datang bapak/ibu STAFF ADMIN SMK LETRIS INDONESIA 2! 🎉</h5>
+            <h5 class="card-title text-primary">Welcome back, {{ Auth::user()->name }}! 🎉</h5>
             <p class="mb-4">
                 Aplikasi ini adalah aplikasi data informasi siswa alumni SMK LETRIS INDONESIA 2. <br/>
-                Di aplikasi ini, <span class="fw-bold"> berfungsi untuk membuat, melihat, mengubah, dan menghapus data siswa alumni SMK LETRIS INDONESIA 2. </span>
             </p>
             </div>
         </div>
@@ -32,6 +31,20 @@
         </div>
     </div>
     </div>  
-     
+    @if(Auth::user()->user_type === 'admin')
+    <div class="col-lg-12 mb-4 order-0">
+        <div class="card">
+            <div class="d-flex align-items-end row">
+            <div class="col-sm-7">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Total keseluhan data siswa yang lulus :  {{ $countData }} Siswa 🎉</h5>
+                <h5>Jumlah siswa yang kerja setelah lulus : {{ $countKerja }}</h5>
+                <h5>Jumlah siswa yang kuliah setelah lulus : {{ $countKuliah }}</h5>
+            </div>
+            </div>
+        </div>
+        </div>  
+    </div>
+    @endif    
 </div>    
 @endsection

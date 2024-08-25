@@ -12,7 +12,7 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
             <li class="nav-item lh-1 me-3">
-                SMK LETRIS INDONESIA 2
+                {{ Auth::user()->name }}
             </li>
 
             <!-- User -->
@@ -22,17 +22,6 @@
                 <div data-i18n="Basic"></div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                <a class="dropdown-item">
-                    <div>
-                        <span class="fw-semibold d-block">SMK LETRIS 2</span>
-                        <small class="text-muted">Admin</small>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <div class="dropdown-divider"></div>
-                </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
